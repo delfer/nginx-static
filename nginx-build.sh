@@ -40,11 +40,12 @@ sudo make install
 
 cd ..
 
-test -f nginx-1.19.6.tar.gz || wget https://nginx.org/download/nginx-1.19.6.tar.gz
-test -d nginx-1.19.6 || tar zxf nginx-1.19.6.tar.gz
-cd nginx-1.19.6
+test -f nginx-1.19.7.tar.gz || wget https://nginx.org/download/nginx-1.19.7.tar.gz
+test -d nginx-1.19.7 || tar zxf nginx-1.19.7.tar.gz
+cd nginx-1.19.7
 
 ./configure \
+--with-debug \
 --prefix=/opt/nginx \
 --with-cc-opt="-static -static-libgcc" \
 --with-ld-opt="-static" \
@@ -52,9 +53,20 @@ cd nginx-1.19.6
 --with-pcre=../pcre-8.44 \
 --with-zlib=../zlib-1.2.11 \
 --with-http_ssl_module \
+--with-compat \
+--with-file-aio \
+--with-threads \
+--with-http_addition_module \
+--with-http_auth_request_module \
+--with-http_slice_module \
+--with-http_sub_module \
+--with-http_v2_module \
+--with-mail \
+--with-mail_ssl_module \
 --with-stream \
---with-mail=dynamic \
---with-ipv6 \
+--with-stream_realip_module \
+--with-stream_ssl_module \
+--with-stream_ssl_preread_module \
 --with-poll_module \
 --with-select_module \
 --with-http_realip_module \
@@ -69,11 +81,6 @@ cd nginx-1.19.6
 --with-http_random_index_module \
 --with-http_secure_link_module \
 --with-http_degradation_module \
---with-http_stub_status_module \
---with-mail_ssl_module
-
-#--sbin-path=/usr/local/nginx/nginx \
-#--conf-path=/usr/local/nginx/nginx.conf \
-#--pid-path=/usr/local/nginx/nginx.pid \
+--with-http_stub_status_module 
 
 make -j1
